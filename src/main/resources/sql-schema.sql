@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS `ims`.`item` (
 );
 
 CREATE TABLE IF NOT EXISTS `ims`.`order_items` (
-	order_item_id int NOT NULL AUTO_INCREMENT,
-    order_id int NOT NULL,
+	order_id int NOT NULL AUTO_INCREMENT,
+    order_item_id int NOT NULL,
     item_id int NOT NULL,
 	PRIMARY KEY (order_item_id),
 	FOREIGN KEY (item_id) REFERENCES item(item_id),
