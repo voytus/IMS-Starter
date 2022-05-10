@@ -57,7 +57,7 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a first item");
 		String name = utils.getString();
 		LOGGER.info("Please enter an item name");
-		String item_price = utils.getString();
+		Double item_price = utils.getDouble();
 		Item item = itemDAO.update(new Item(id, name, item_price));
 		LOGGER.info("Item updated");
 		return item;
