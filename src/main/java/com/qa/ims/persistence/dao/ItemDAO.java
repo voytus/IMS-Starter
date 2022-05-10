@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 
 
@@ -20,7 +19,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long item_id = resultSet.getLong("id");
 		String item_name = resultSet.getString("name");
-		Double  = resultSet.getDouble("item_id");
+		Double item_price  = resultSet.getDouble("item_price");
 		return new Item(item_id, item_name, item_price);
 	}
 
