@@ -6,8 +6,15 @@ public class Order {
 
 	private Long orderId;
 	private Long customerId;
-
 	
+	
+	
+	
+	public Order(Long orderId, Long customerId) {
+		super();
+		this.orderId = orderId;
+		this.customerId = customerId;
+	}
 	public Long getOrderId() {
 		return orderId;
 	}
