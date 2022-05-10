@@ -8,12 +8,13 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
+
 public class OrderController implements CrudController<Order> {
 
-/**
- * Takes in order details for CRUD functionality
- *
- */
+	/**
+	 * Takes in order details for CRUD functionality
+	 *
+	 */
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -60,7 +61,7 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter a first order Id");
-		Long  orderId = utils.getLong();
+		Long orderId = utils.getLong();
 		LOGGER.info("Please enter a cusotmer Id");
 		Long cusotmerId = utils.getLong();
 		Order order = orderDAO.update(new Order(orderId, cusotmerId));

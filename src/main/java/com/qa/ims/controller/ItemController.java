@@ -1,4 +1,5 @@
 package com.qa.ims.controller;
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class ItemController implements CrudController<Item> {
 	@Override
 	public List<Item> readAll() {
 		List<Item> items = itemDAO.readAll();
-		for (Item item  : items) {
+		for (Item item : items) {
 			LOGGER.info(item);
 		}
 		return items;
@@ -41,8 +42,8 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a name of a first item");
 		String name = utils.getString();
 		LOGGER.info("Please enter an item price");
-		Double  itemPrice = utils.getDouble();
-		Item item = itemDAO.create(new Item( name, itemPrice));
+		Double itemPrice = utils.getDouble();
+		Item item = itemDAO.create(new Item(name, itemPrice));
 		LOGGER.info("Item created");
 		return item;
 	}

@@ -1,4 +1,5 @@
 package com.qa.ims.persistence.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 
-
 public class ItemDAO implements Dao<Item> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -20,7 +20,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long itemId = resultSet.getLong("item_id");
 		String itemName = resultSet.getString("item_name");
-		Double itemPrice  = resultSet.getDouble("item_price");
+		Double itemPrice = resultSet.getDouble("item_price");
 		return new Item(itemId, itemName, itemPrice);
 	}
 
@@ -99,8 +99,8 @@ public class ItemDAO implements Dao<Item> {
 	/**
 	 * Updates an item in the database
 	 * 
-	 * @param item - takes in a item object, the id field will be used to
-	 *                 update that item in the database
+	 * @param item - takes in a item object, the id field will be used to update
+	 *             that item in the database
 	 * @return
 	 */
 	@Override
@@ -137,8 +137,5 @@ public class ItemDAO implements Dao<Item> {
 		}
 		return 0;
 	}
-
-
-	
 
 }
