@@ -57,8 +57,6 @@ public class OrderController implements CrudController<Order> {
 	 * Updates an existing order by taking in user input
 	 */
 	@Override
-	
-	//add plus remove stuff from methods DAO
 	public Order update() {
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long orderId = utils.getLong();
