@@ -68,6 +68,9 @@ public class Order {
 		return Objects.equals(customerId, other.customerId) && Objects.equals(orderId, other.orderId)
 				&& Objects.equals(orderItems, other.orderItems);
 	}
+	public List<Item> addItem(Long orderId2, Long itemId) {
+		return null;
+	}
 	
 	
 }
