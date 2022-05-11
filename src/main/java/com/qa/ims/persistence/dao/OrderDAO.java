@@ -25,7 +25,6 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 	public static final Logger LOGGER = LogManager.getLogger();
-	private static final Long[] itemIds = null;
 
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
@@ -33,6 +32,26 @@ public class OrderDAO implements Dao<Order> {
 		Long customerId = resultSet.getLong("customer_id");
 		List<Item> items = getItems(orderId);
 		return new Order(orderId, customerId, items);
+	}
+
+	public List<Item> getItems(Long orderId) {
+		List<Long> itemIds = new ArrayList<>();
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM order_items WHERE order_id = " + orderId);) {
+			while (resultSet.next()) {
+				itemIds.add(resultSet.getLong("item_id"));
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		List<Item> itemList = new ArrayList<>();
+		for (Long i : itemIds) {
+			itemList.add(itemDAO.read(i));
+		}
+		return itemList;
 	}
 
 	@Override
@@ -96,25 +115,25 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	private List<Item> getItems(Long orderId) {
-		List<Long> itemIds = new ArrayList<>();
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM order_items WHERE order_id = " + orderId);) {
-			while (resultSet.next()) {
-				itemIds.add(resultSet.getLong("item_id"));
-			}
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		List<Item> itemList = new ArrayList<>();
-		for (Long i : itemIds) {
-			itemList.add(itemDAO.read(i));
-		}
-		return itemList;
-	}
+//	private List<Item> getItems(Long orderId) {
+//		List<Long> itemIds = new ArrayList<>();
+//		try (Connection connection = DBUtils.getInstance().getConnection();
+//				Statement statement = connection.createStatement();
+//				ResultSet resultSet = statement
+//						.executeQuery("SELECT * FROM order_items WHERE order_id = " + orderId);) {
+//			while (resultSet.next()) {
+//				itemIds.add(resultSet.getLong("item_id"));
+//			}
+//		} catch (Exception e) {
+//			LOGGER.debug(e);
+//			LOGGER.error(e.getMessage());
+//		}
+//		List<Item> itemList = new ArrayList<>();
+//		for (Long i : itemIds) {
+//			itemList.add(itemDAO.read(i));
+//		}
+//		return itemList;
+//	}
 
 	public List<Item> addItem(Long orderId, Long itemId) {
 
