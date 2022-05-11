@@ -9,10 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class OrderDAO implements Dao<Order> {
+	private ItemDAO  itemDAO;
+	private CustomerDAO customerDAO;
+	
+	
+	public OrderDAO(ItemDAO itemDAO, CustomerDAO customerDAO) {
+		super();
+		this.itemDAO = itemDAO;
+		this.customerDAO = customerDAO;
+	}
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -20,7 +31,8 @@ public class OrderDAO implements Dao<Order> {
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderId = resultSet.getLong("order_id");
 		Long customerId = resultSet.getLong("customer_id");
-		return new Order(orderId, customerId);
+		List<Item> items = getItems(orderId);
+		return new Order(orderId, customerId, items);
 	}
 
 
@@ -97,21 +109,31 @@ public class OrderDAO implements Dao<Order> {
 	 *              that order in the database
 	 * @return
 	 */
-	@Override //add single item and delete form the order
 	
-	public Order update(Order order) {
+	private List<Item> getItems(Long orderId) {
+		List<Long> itemIds = new ArrayList<>();
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE orders SET customer_id = ? WHERE order_id = ?");) {
-			statement.setLong(1, order.getCustomerId());
-			statement.executeUpdate();
-			return read(order.getOrderId());
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM order_items WHERE order_id = " + orderId);) {
+			while (resultSet.next()) {
+				itemIds.add(resultSet.getLong("item_id"));
+			}
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
+		List<Item> itemList = new ArrayList<>();
+		for (Long i : itemIds) {
+			itemList.add(itemDAO.read(i));
+		}
+		return itemList;
+	}
+	
+
+	public Order addItem(Long orderId, Long itemId) {
 		return null;
 	}
+
 
 	/**
 	 * Deletes a order in the database
@@ -130,5 +152,14 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return 0;
 	}
+
+
+	@Override
+	public Order update(Order t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

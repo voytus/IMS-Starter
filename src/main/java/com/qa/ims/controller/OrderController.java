@@ -64,8 +64,8 @@ public class OrderController implements CrudController<Order> {
 		Long orderId = utils.getLong();
 		LOGGER.info("Please choose one from the following: add to order / delete from the order");
 		String addRemove= utils.getString();
-		if addRemoe.equals("add") {
-					}
+		if (addRemove.equals("add")) {
+					
 		LOGGER.info("Please enter an item Id to be added");
 		Long itemId = utils.getLong();
 		Order order = orderDAO.addItem(orderId, itemId);
@@ -74,7 +74,10 @@ public class OrderController implements CrudController<Order> {
 		} else if (addRemove.equals("remove") ) {
 		LOGGER.info("Please enter the id of the item you would like to remove");
 		Long itemId = utils.getLong();
-
+		} else {
+		return order;
+		}
+		}
 		}
 
 	/**
