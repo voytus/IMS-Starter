@@ -75,10 +75,11 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the id of the item you would like to remove");
 		Long itemId = utils.getLong();
 		} else {
-		return order;
+		return null;
 		}
+		return null;
 		}
-		}
+		
 
 	/**
 	 * Deletes an existing order by the id of the order

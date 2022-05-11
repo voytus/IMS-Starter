@@ -131,8 +131,42 @@ public class OrderDAO implements Dao<Order> {
 	
 
 	public Order addItem(Long orderId, Long itemId) {
+		List<Item> itemList = new ArrayList<>();
+		for (Long i : itemIds) {
+			itemList.add(itemDAO.read(i));
+		}
+		return itemList;
+	}
+	
+	
+	
+	public Order removeItem(Long orderId, Long itemId) {
 		return null;
 	}
+	
+	@Override
+	public Order update(Order t) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE items SET item_name = ?, item_price = ? WHERE item_id = ?");) {
+			statement.setString(1, Order.getOrderName());
+			statement.setDouble(2, Order.getOrderPrice());
+			statement.setLong(3, Order.getOrderId());
+			statement.executeUpdate();
+			return read(item.getOrderId());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+		
+		//public Item update(Item item) {
+			
+		
+		
+		
+		
 
 
 	/**
@@ -154,11 +188,7 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 
-	@Override
-	public Order update(Order t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 
