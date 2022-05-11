@@ -58,13 +58,15 @@ public class OrderController implements CrudController<Order> {
 			Long itemId = utils.getLong();
 			Order order = orderDAO.addItem(orderId,  itemId);
 //			List<Item> order = orderDAO.addItem(orderId, itemId);
-			
 			LOGGER.info("Order Updated");
-			return null;
+			return order;
+			
 
 		} else if (addRemove.equals("remove")) {
 			LOGGER.info("Please enter the id of the item you would like to remove");
 			Long itemId = utils.getLong();
+			Long order = orderDAO.deleteItem(orderId, itemId);
+			
 		} else {
 
 			return null;

@@ -121,8 +121,8 @@ public class OrderDAO implements Dao<Order> {
 
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
-					return null;
-						
+			statement.getLong(1,  order_id());
+			statement.executeUpdate();						
 				
 //modify a method to set a values into fields
 			
