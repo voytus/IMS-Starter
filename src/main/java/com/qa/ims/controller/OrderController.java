@@ -12,11 +12,6 @@ import com.qa.ims.utils.Utils;
 
 public class OrderController implements CrudController<Order> {
 
-	/**
-	 * Takes in order details for CRUD functionality
-	 *
-	 */
-
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private OrderDAO orderDAO;
@@ -28,9 +23,6 @@ public class OrderController implements CrudController<Order> {
 		this.utils = utils;
 	}
 
-	/**
-	 * Reads all orders to the logger
-	 */
 	@Override
 	public List<Order> readAll() {
 		List<Order> orders = orderDAO.readAll();
@@ -40,9 +32,7 @@ public class OrderController implements CrudController<Order> {
 		return orders;
 	}
 
-	/**
-	 * Creates a order by taking in user input
-	 */
+
 	@Override
 	public Order create() {
 
@@ -55,9 +45,7 @@ public class OrderController implements CrudController<Order> {
 		return order;
 	}
 
-	/**
-	 * Updates an existing order by taking in user input
-	 */
+	
 	@Override
 	public Order update() {
 		LOGGER.info("Please enter the id of the order you would like to update");
@@ -68,7 +56,9 @@ public class OrderController implements CrudController<Order> {
 		if (addRemove.equals("add")) {
 			LOGGER.info("Please enter an item Id to be added");
 			Long itemId = utils.getLong();
-			List<Item> order = orderDAO.addItem(orderId, itemId);
+			Order order = orderDAO.addItem(orderId,  itemId);
+//			List<Item> order = orderDAO.addItem(orderId, itemId);
+			
 			LOGGER.info("Order Updated");
 			return null;
 
@@ -83,11 +73,6 @@ public class OrderController implements CrudController<Order> {
 
 	}
 
-	/**
-	 * Deletes an existing order by the id of the order
-	 * 
-	 * @return
-	 */
 	@Override
 	public int delete() {
 		LOGGER.info("Please enter the id of the order you would like to delete");

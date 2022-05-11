@@ -115,38 +115,18 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-//	private List<Item> getItems(Long orderId) {
-//		List<Long> itemIds = new ArrayList<>();
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				Statement statement = connection.createStatement();
-//				ResultSet resultSet = statement
-//						.executeQuery("SELECT * FROM order_items WHERE order_id = " + orderId);) {
-//			while (resultSet.next()) {
-//				itemIds.add(resultSet.getLong("item_id"));
-//			}
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		List<Item> itemList = new ArrayList<>();
-//		for (Long i : itemIds) {
-//			itemList.add(itemDAO.read(i));
-//		}
-//		return itemList;
-//	}
+
 
 	public List<Item> addItem(Long orderId, Long itemId) {
 
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
-			List<Item> itemList = new ArrayList<>();
-
-			for (Long i : itemIds) {
-				itemList.add(itemDAO.read(i));
-			}
-			return itemList;
-		} catch (Exception e) {
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
+					return null;
+						
+				
+//modify a method to set a values into fields
+			
+			} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
@@ -156,12 +136,7 @@ public class OrderDAO implements Dao<Order> {
 
 	public List<Item> removeItem(Long orderId, Long itemId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("REMOVE order_item WHERE item_id = ?");) {
-			List<Item> itemList = new ArrayList<>();
-			for (Long i : itemIds) {
-				itemList.remove(itemDAO.read(i));
-			}
-			return itemList;
+				PreparedStatement statement = connection.prepareStatement("DELETE order_item WHERE item_id = ?");) {
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
