@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `ims`.`customers` (
 );
 CREATE TABLE IF NOT EXISTS `ims`.`item` (
 	item_id int NOT NULL AUTO_INCREMENT,
-	item_price DEC(2,10) NOT NULL,
+	item_price DOUBLE NOT NULL,
 	item_name VARCHAR(32),
 	PRIMARY KEY (item_id)
 );
