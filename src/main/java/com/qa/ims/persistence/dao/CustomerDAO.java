@@ -20,12 +20,14 @@ public class CustomerDAO implements Dao<Customer> {
 
 	@Override
 	public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long customer_id = resultSet.getLong("customer_id");
+		Long id = resultSet.getLong("customer_id");
 		String firstName = resultSet.getString("first_name");
 		String surname = resultSet.getString("surname");
-		return new Customer(customer_id, firstName, surname);
+		return new Customer(id, firstName, surname);
 	}
-
+//	 customer_id 
+//	    first_name 
+//	    surname 
 	/**
 	 * Reads all customers from the database
 	 * 
@@ -85,7 +87,7 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers WHERE customer_id = ?");) {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();

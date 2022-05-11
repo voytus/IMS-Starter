@@ -97,7 +97,8 @@ public class OrderDAO implements Dao<Order> {
 	 *              that order in the database
 	 * @return
 	 */
-	@Override
+	@Override //add single item and delete form the order
+	
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
