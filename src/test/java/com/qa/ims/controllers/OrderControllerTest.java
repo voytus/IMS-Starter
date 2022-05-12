@@ -13,10 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,13 +35,12 @@ public class OrderControllerTest {
 	@Test
 	public void testCreate() {
 		final Long customerId = 1L;
-		final Long orderId = 2L;
-		final Order created = new Order(customerId, orderId);
+		final Order created = new Order(customerId);
 		Mockito.when(utils.getLong()).thenReturn(customerId);
-		Mockito.when(dao.create(any(Order.class))).thenReturn(any(created));
+		Mockito.when(dao.create(created)).thenReturn(created);
 		assertEquals(created, controller.create());
 		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(dao, Mockito.times(2)).create(any(Order.class));
+		Mockito.verify(dao, Mockito.times(1)).create(created);
 			}
 	
 	@Test

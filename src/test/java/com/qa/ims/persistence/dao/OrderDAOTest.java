@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.qa.ims.controller.CustomerController;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 public class OrderDAOTest {
@@ -29,7 +30,7 @@ public class CustomerControllerTest {
 	private CustomerDAO dao;
 
 	@InjectMocks
-	private CustomerController controller;
+	private OrderController controller;
 
 	@Test
 	public void testCreate() {
@@ -79,5 +80,9 @@ public class CustomerControllerTest {
 	public void testModelFromResultSet() {
 		
 	}
-
+	@Test
+	public void testRead() {
+		final Long = 1L;
+		assertEquals(new Order(orderId), DAO.read(orderId);
+	}
 }
