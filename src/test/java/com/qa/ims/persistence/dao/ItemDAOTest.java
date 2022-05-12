@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class ItemDAOTest {
@@ -24,14 +25,14 @@ public class ItemDAOTest {
 
 	@Test
 	public void testCreate() {
-		final Customer created = new Item("pencil", 20D);
+		final Item created = new Item("pencil", 20D);
 		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
 	public void testReadAll() {
-		List<Customer> expected = new ArrayList<>();
-		expected.readAll(new Item(2L, "pencil", 20D));
+		List<Order> expected = new ArrayList<>();
+		expected.readAll(new Item("pencil", 20D));
 		assertEquals(expected, DAO.readAll());
 	}
 

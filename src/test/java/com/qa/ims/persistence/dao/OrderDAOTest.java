@@ -2,22 +2,18 @@ package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
-
 
 public class OrderDAOTest {
 
@@ -49,24 +45,24 @@ public class OrderDAOTest {
 		final Long OrderId;
 		final Order addItem = new Order(2L);
 		assertEquals(addItem, dao.addItem(2L, OrderId));
-			}
+	}
+
 	@Test
 	public void testDelete() {
-		
 		assertEquals(0, dao.delete());
-	
-}
+	}
 
 	@Test
 	public void testModelFromResultSet() {
-		
+
 	}
+
 	@Test
 	public void testRead() {
-		final Long = 2L;
+		List<Order> created = new ArrayList<>();
+		final Long orderId = 2L;
 		final Long cusotmerId = 1L;
-		assertEquals(new Order(customerId, DAO.read(cusotmerId));
+		assertEquals(new Order(orderId, cusotmerId), dao.read(orderId));
 	}
-	
-	
+
 }
