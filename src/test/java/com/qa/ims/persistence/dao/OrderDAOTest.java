@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 public class OrderDAOTest {
@@ -27,53 +28,37 @@ public class CustomerControllerTest {
 	private Utils utils;
 
 	@Mock
-	private CustomerDAO dao;
+	private OrderDAO dao;
 
 	@InjectMocks
 	private OrderController controller;
 
 	@Test
 	public void testCreate() {
-		final String F_NAME = "barry", L_NAME = "scott";
-		final Customer created = new Customer(F_NAME, L_NAME);
+		final Order created = new Order(2L, 1L);
+		assertEquals(created, dao.create(created));
 
-		Mockito.when(utils.getString()).thenReturn(F_NAME, L_NAME);
-		Mockito.when(dao.create(created)).thenReturn(created);
-
-		assertEquals(created, controller.create());
-
-		Mockito.verify(utils, Mockito.times(2)).getString();
-		Mockito.verify(dao, Mockito.times(1)).create(created);
 	}
 
 	@Test
 	public void testReadAll() {
-		List<Order> customers = new ArrayList<>();
-		customers.add(new Order(1L, "jordan", "harrison"));
-
-		Mockito.when(dao.readAll()).thenReturn(customers);
-
-		assertEquals(orders, controller.readAll());
-
-		Mockito.verify(dao, Mockito.times(1)).readAll();
+		List<Order> created = new ArrayList<>();
+		created.add(new Order(1L, 1L));
+		assertEquals(created, dao.readAll());
 	}
 
 	@Test
-	public void testUpdate() {
-	}
+	public void testUpdateAddItem() {
+		final Long OrderId;
+		final Order addItem = new Order(2L);
+		assertEquals(addItem, dao.addItem(2L, OrderId);
+		
 
 	@Test
 	public void testDelete() {
-		final long ID = 1L;
-
-		Mockito.when(utils.getLong()).thenReturn(ID);
-		Mockito.when(dao.delete(ID)).thenReturn(1);
-
-		assertEquals(1L, this.controller.delete());
-
-		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(dao, Mockito.times(1)).delete(ID);
-	}
+		
+		assertEquals(0, dao.delete());
+	
 }
 
 	@Test
@@ -83,6 +68,8 @@ public class CustomerControllerTest {
 	@Test
 	public void testRead() {
 		final Long = 1L;
+		final Long cusotmerId = 1L;
 		assertEquals(new Order(orderId), DAO.read(orderId);
+	}
 	}
 }
