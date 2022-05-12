@@ -114,6 +114,7 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+
 	@Override
 	public Order update(Order t) {
 		return null;
@@ -122,31 +123,31 @@ public class OrderDAO implements Dao<Order> {
 	public List<Item> addItem(Long orderId, Long itemId) {
 
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
-			statement.setLong(1,  orderId);
-			statement.setLong(2,  itemId);
-			statement.executeUpdate();		
-			} catch (Exception e) {
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
+			statement.setLong(1, orderId);
+			statement.setLong(2, itemId);
+			statement.executeUpdate();
+		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return read(orderId);
+		return null;
 
 	}
 
 	public List<Item> removeItem(Long orderId, Long itemId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM order_items (order_id, item_id) VALUES (?, ?");) {
-		statement.setLong(1,  orderId);
-		statement.setLong(2, itemId);
-		statement.executeUpdate();
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM order_items (order_id, item_id) VALUES (?, ?");) {
+			statement.setLong(1, orderId);
+			statement.setLong(2, itemId);
+			statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return order;
-	
-	
+		return null;
 
 	}
 
