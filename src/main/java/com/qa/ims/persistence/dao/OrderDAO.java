@@ -120,7 +120,7 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	public List<Item> addItem(Long orderId, Long itemId) {
+	public Order addItem(Long orderId, Long itemId) {
 
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
@@ -132,11 +132,11 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return read(orderId);
 
 	}
 
-	public List<Item> removeItem(Long orderId, Long itemId) {
+	public Order removeItem(Long orderId, Long itemId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("DELETE FROM order_items (order_id, item_id) VALUES (?, ?");) {
@@ -147,8 +147,7 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
-
+		return read(orderId);
 	}
 
 	@Override
