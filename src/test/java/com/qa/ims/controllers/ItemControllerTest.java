@@ -73,7 +73,7 @@ public class ItemControllerTest {
 
 		Mockito.verify(this.utils, Mockito.times(1)).getLong();
 		Mockito.verify(this.utils, Mockito.times(1)).getString();
-		Mockito.verify(this.dao, Mockito.times(2)).update(updated);
+		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
 	}
 
 	@Test
