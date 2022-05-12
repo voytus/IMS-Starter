@@ -114,39 +114,40 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
-
-
+	@Override
+	public Order update(Order t) {
+		return null;
+	}
 
 	public List<Item> addItem(Long orderId, Long itemId) {
 
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement("INSERT INTO order_items (order_id, item_id) VALUES (?, ?)")) {
-			statement.getLong(1,  order_id());
-			statement.executeUpdate();						
-				
-//modify a method to set a values into fields
-			
+			statement.setLong(1,  orderId);
+			statement.setLong(2,  itemId);
+			statement.executeUpdate();		
 			} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return read(orderId);
 
 	}
 
 	public List<Item> removeItem(Long orderId, Long itemId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE order_item WHERE item_id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM order_items (order_id, item_id) VALUES (?, ?");) {
+		statement.setLong(1,  orderId);
+		statement.setLong(2, itemId);
+		statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
-	}
+		return order;
+	
+	
 
-	@Override
-	public Order update(Order t) {
-		return null;
 	}
 
 	@Override
