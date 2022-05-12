@@ -1,6 +1,7 @@
 package com.qa.ims.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class ItemControllerTest {
 		Mockito.when(dao.create(created)).thenReturn(created);
 
 		assertEquals(created, controller.create());
-
-		Mockito.verify(utils, Mockito.times(2)).getString();
+		Mockito.verify(utils, Mockito.times(1)).getString();
+		Mockito.verify(utils, Mockito.times(1)).getDouble();
 		Mockito.verify(dao, Mockito.times(1)).create(created);
 	}
 
@@ -59,17 +60,20 @@ public class ItemControllerTest {
 
 	@Test
 	public void testUpdate() {
-		Item updated = new Item("pencil", 20D);
-
-		Mockito.when(this.utils.getDouble()).thenReturn(20D);
+		final String itemName = "pencil";
+		final Double itemPrice = 20D;
+		
+		Item updated = new Item(itemName, itemPrice);
+		Mockito.when(this.utils.getString()).thenReturn(itemName);
+		Mockito.when(this.utils.getDouble()).thenReturn(itemPrice);
 		Mockito.when(this.utils.getDouble()).thenReturn(updated.getItemPrice());
-		Mockito.when(this.dao.update(updated)).thenReturn(updated);
+		Mockito.when(this.dao.update(any(Item.class))).thenReturn(updated);
 
 		assertEquals(updated, this.controller.update());
 
 		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-		Mockito.verify(this.utils, Mockito.times(2)).getString();
-		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
+		Mockito.verify(this.utils, Mockito.times(1)).getString();
+		Mockito.verify(this.dao, Mockito.times(2)).update(updated);
 	}
 
 	@Test
